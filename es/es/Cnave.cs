@@ -91,26 +91,26 @@ namespace es
             }
 
             //guardo se ci sono sovrapposizioni
-            for (int yy = startY; yy <= endY; yy++)
+            for (int i = startY; i <= endY; i++)
             {
-                for (int xx = startX; xx <= endX; xx++)
+                for (int j = startX; j <= endX; j++)
                 {
-                    if (campo[yy, xx] != 0)//se non vuota lancia eccezione
+                    if (campo[i, j] != 0)//se non vuota lancia eccezione
                     {
-                        throw new InvalidOperationException($"Sovrapposizione: la cella ({xx},{yy}) è già occupata.");
+                        throw new InvalidOperationException($"Sovrapposizione: la cella ({j},{i}) è già occupata.");
                     }
                 }
             }
 
             //se tutto ok posiziona nave
-            for (int yy = startY; yy <= endY; yy++)
+            for (int h = startY; h <= endY; h++)
             {
-                for (int xx = startX; xx <= endX; xx++)
+                for (int k = startX; k <= endX; k++)
                 {
-                    campo[yy, xx] = this.id;
-                    if (yy >= 0 && yy < btn.GetLength(0) && xx >= 0 && xx < btn.GetLength(1))
+                    campo[h, k] = this.id;
+                    if (h >= 0 && h < btn.GetLength(0) && k >= 0 && k < btn.GetLength(1))
                     {
-                        btn[yy, xx].BackColor = Color.Gray;
+                        btn[h, k].BackColor = Color.Gray;
                     }
                 }
             }

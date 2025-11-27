@@ -101,14 +101,15 @@ namespace es
 
                 throw;
             }
-            try            {
+            try
+            {
                 if (lst_log == null) return;//se la list box non esiste ritorno
                 lst_log.Items.Add(text);//aggiungo il testo al log
 
                 if (lst_log.Items.Count > 0)//se ci sono elementi nel log
                     lst_log.TopIndex = lst_log.Items.Count - 1;//scorro in basso per vedere l'ultimo messaggio
             }
-            catch(Exception ex)//catturo l'eccezione
+            catch (Exception ex)//catturo l'eccezione
             {
                 MessageBox.Show(ex.Message);//mostro il messaggio di errore (minimale)
             }
@@ -140,6 +141,7 @@ namespace es
             int col = intera.x;
             int row = intera.y;
             int attacker;
+            string risultato;
 
             if (intera.pg == 1)
             {
@@ -156,30 +158,63 @@ namespace es
 
             // Colore base
             if (intera.col)
+            {
                 btn[row, col].BackColor = Color.Red;
+            }
             else
+            {
                 btn[row, col].BackColor = Color.White;
+            }
 
             // Se affondata, coloro tutte le caselle della nave
             if (intera.col && intera.aff)
             {
-                for (int r = 0; r < campo.GetLength(0); r++)
+                for (int i = 0; i < campo.GetLength(0); i++)
                 {
-                    for (int c = 0; c < campo.GetLength(1); c++)
+                    for (int j = 0; j < campo.GetLength(1); j++)
                     {
-                        if (campo[r, c] == -intera.id)
-                            btn[r, c].BackColor = Color.Black;
+                        if (campo[i, j] == -intera.id)
+                        {
+                            btn[i, j].BackColor = Color.Black;
+                        }
                     }
                 }
             }
+            tutto_Aff(intera.pg);
 
             // Determino chi è l’attaccante
             if (twoPlayer)
-                attacker = (intera.pg == 1) ? 2 : 1;
+            {
+                if (intera.pg == 1)
+                {
+                    attacker = 2;
+                }
+                else
+                {
+                    attacker = 1;
+                }
+            }
             else
+            {
                 attacker = 1;
+            }
 
-            string risultato = intera.col ? (intera.aff ? "Affondato nave" : "Colpito") : "Mancato";
+            if (intera.col)
+            {
+                if (intera.aff)
+                {
+                    risultato = "Affondato nave";
+                }
+                else
+                {
+                    risultato = "Colpito";
+                }
+            }
+            else
+            {
+                risultato = "Mancato";
+            }
+
             Log($"Giocatore {attacker} -> campo Giocatore {intera.pg}: {risultato} id {intera.id} in ({col},{row})");
         }
 
@@ -324,10 +359,9 @@ namespace es
                 {
                     bool handled = false;
 
-                    // Provo a processare il colpo su tutte le navi
-                    foreach (var nave in navi)
+                    for (int i = 0; i < navi.Count; i++)
                     {
-                        if (nave.ProcessShot(col, row, campo))
+                        if (navi[i].ProcessShot(row, col, campo))
                         {
                             handled = true;
                             break;
@@ -337,9 +371,17 @@ namespace es
                     // Se nessuna nave ha gestito il colpo, segno acqua colpita
                     if (!handled)
                     {
+                        Button[,] btns;
                         if (campo[row, col] <= 0) campo[row, col] = -11;
 
-                        Button[,] btns = (pg == 1) ? btnp1 : btnp2;
+                        if (pg == 1)
+                        {
+                            btns = btnp1;
+                        }
+                        else
+                        {
+                            btns = btnp2;
+                        }
                         if (btns != null && btns[row, col] != null)
                         {
                             btns[row, col].BackColor = Color.White;
@@ -371,7 +413,7 @@ namespace es
                                 }
                                 else
                                 {
-                                    MessageBox.Show("È il turno di posizionamento del giocatore 2.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("È il turno di posizionamento del giocatore 2.");
                                     return;
                                 }
                             }
@@ -391,7 +433,7 @@ namespace es
                                 }
                                 else
                                 {
-                                    MessageBox.Show($"Non è il turno del giocatore {activePlayer}.", "Turno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show($"Non è il turno del giocatore {activePlayer}.");
                                     return;
                                 }
                             }
@@ -417,7 +459,7 @@ namespace es
                                     }
                                     else
                                     {
-                                        MessageBox.Show("È il turno di posizionamento del giocatore 1.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBox.Show("È il turno di posizionamento del giocatore 1.");
                                         return;
                                     }
                                 }
@@ -432,7 +474,7 @@ namespace es
                                     }
                                     else
                                     {
-                                        MessageBox.Show($"Non è il turno del giocatore {activePlayer}.", "Turno", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBox.Show($"Non è il turno del giocatore {activePlayer}.");
                                         return;
                                     }
                                 }
@@ -452,7 +494,7 @@ namespace es
         {
             int ct;
 
-            if(player == 1)
+            if (player == 1)
             {
                 ct = contp1;
             }
@@ -464,7 +506,7 @@ namespace es
             switch (ct)
             {
                 case 0:
-                    if(player == 1)
+                    if (player == 1)
                     {
                         return "Giocatore 1: inizia il posizionamento";
                     }
@@ -582,14 +624,14 @@ namespace es
             y1 = -9;
 
             // reset campop1 e colori bottoni
-            for (int r = 0; r < 10; r++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int c = 0; c < 10; c++)
+                for (int j = 0; j < 10; j++)
                 {
-                    campop1[r, c] = 0;
-                    if (btnp1[r, c] != null)
+                    campop1[i, j] = 0;
+                    if (btnp1[i, j] != null)
                     {
-                        btnp1[r, c].BackColor = Color.LightBlue;
+                        btnp1[i, j].BackColor = Color.LightBlue;
                     }
                 }
             }
@@ -597,20 +639,59 @@ namespace es
             CreatePlayer2Grid();
 
             // reset campop2 e colori bottoni
-            for (int r = 0; r < 10; r++)
+            for (int i = 0; i < 10; i++)
             {
-                for (int c = 0; c < 10; c++)
+                for (int j = 0; j < 10; j++)
                 {
-                    campop2[r, c] = 0;
-                    if (btnp2 != null && btnp2[r, c] != null)
+                    campop2[i, j] = 0;
+                    if (btnp2 != null && btnp2[i, j] != null)
                     {
-                        btnp2[r, c].BackColor = Color.LightBlue;
+                        btnp2[i, j].BackColor = Color.LightBlue;
                     }
                 }
             }
 
             lst_log.Text = displaynave(1);
             Log("Modalità 2 giocatori attivata. Inizia piazzamento Giocatore 1.");
+        }
+        private void tutto_Aff(int player)
+        {
+            if (player == 1)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (campop1[i, j] > 0)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                if(twoPlayer)
+                {
+                    MessageBox.Show("il giocatore 2 ha vinto");
+                }
+                else
+                {
+                    MessageBox.Show("Hai vinto!");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (campop2[i, j] > 0)
+                        {
+                            return;
+                        }
+                    }
+                }
+                MessageBox.Show("il giocatore 1 ha vinto");
+            }
         }
     }
 }

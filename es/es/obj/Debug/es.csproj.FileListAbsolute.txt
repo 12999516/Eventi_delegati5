@@ -19,3 +19,14 @@ C:\Users\sebas\Desktop\scuola\info\Altro\battaglia\es\es\obj\Debug\es.csproj.Gen
 C:\Users\sebas\Desktop\scuola\info\Altro\battaglia\es\es\obj\Debug\es.csproj.CoreCompileInputs.cache
 C:\Users\sebas\Desktop\scuola\info\Altro\battaglia\es\es\obj\Debug\es.exe
 C:\Users\sebas\Desktop\scuola\info\Altro\battaglia\es\es\obj\Debug\es.pdb
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\bin\Debug\es.exe.config
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\bin\Debug\es.exe
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\bin\Debug\es.pdb
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.csproj.AssemblyReference.cache
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.exe.config
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.Form1.resources
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.Properties.Resources.resources
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.csproj.GenerateResource.cache
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.csproj.CoreCompileInputs.cache
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.exe
+C:\Users\sebas\Desktop\battaglia\Eventi_delegati5\es\es\obj\Debug\es.pdb
